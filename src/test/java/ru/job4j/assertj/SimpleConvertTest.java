@@ -47,7 +47,7 @@ class SimpleConvertTest {
     void checkMap() {
         SimpleConvert simpleConvert = new SimpleConvert();
         Map<String, Integer> map = simpleConvert.toMap("first", "second", "first", "second");
-        assertThat(map).containsValues(0,1)
+        assertThat(map).containsValues(0, 1)
                 .doesNotContainKey("fourth")
                 .containsEntry("second", 1)
                 .doesNotContainEntry("first", 2);
