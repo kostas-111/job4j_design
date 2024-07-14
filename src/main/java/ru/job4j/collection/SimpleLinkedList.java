@@ -7,7 +7,6 @@ public class SimpleLinkedList<E> implements SimpleLinked<E> {
     private int size;
     private int modCount;
     private Node<E> head;
-    //private Node<E> current;
 
     @Override
     public void add(E value) {
