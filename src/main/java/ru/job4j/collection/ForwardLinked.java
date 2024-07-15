@@ -46,12 +46,17 @@ public class ForwardLinked<T> implements Iterable<T> {
         return element;
     }
 
+    public void addFirst(T value) {
+        head = new Node<>(value, head);
+        size++;
+        modCount++;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             int expectedModCount = modCount;
            Node<T> l = head;
-
 
             @Override
             public boolean hasNext() {
