@@ -22,12 +22,11 @@ public class Config {
             while (line != null) {
                 line = line.strip();
                 if (!line.startsWith("#") && !line.isEmpty()) {
-                    if (line.indexOf('=') > 0 && !line.endsWith("=") && !line.startsWith("=")) {
-                        String[] pairKeyValue = line.split("=", 2);
-                        values.put(pairKeyValue[0], pairKeyValue[1]);
-                    } else {
+                    String[] pairKeyValue = line.split("=", 2);
+                    if (line.indexOf('=') <= 0 || "".equals(pairKeyValue[1])) {
                         throw new IllegalArgumentException();
                     }
+                    values.put(pairKeyValue[0], pairKeyValue[1]);
                 }
                 line = reader.readLine();
             }
@@ -52,6 +51,6 @@ public class Config {
     }
 
    public static void main(String[] args) {
-       System.out.println(new Config("./data/bad_key_value.properties"));
+       System.out.println(new Config("./data/double_equal_in_line.properties"));
    }
 }

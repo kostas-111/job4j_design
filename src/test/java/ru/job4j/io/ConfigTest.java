@@ -1,11 +1,6 @@
 package ru.job4j.io;
 
 import org.junit.jupiter.api.Test;
-import ru.job4j.collection.ListUtils;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.*;
 
 class ConfigTest {
@@ -56,5 +51,21 @@ class ConfigTest {
         Config config = new Config(path);
         config.load();
         assertThat(config.value("# hibernate.connection.username")).isNull();
+    }
+
+    @Test
+    void whenDoubleEqualInLineEnd() {
+        String path = "./data/double_equal_in_line.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("hibernate.dialect")).isEqualTo("org.hibernate.dialect.PostgreSQLDialect=");
+    }
+
+    @Test
+    void whenDoubleEqualInLine() {
+        String path = "./data/double_equal_in_line.properties";
+        Config config = new Config(path);
+        config.load();
+        assertThat(config.value("hibernate.connection.username")).isEqualTo("postgres=2");
     }
 }
