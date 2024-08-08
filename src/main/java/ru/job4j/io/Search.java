@@ -9,11 +9,8 @@ import java.util.function.Predicate;
 
 public class Search {
     public static void main(String[] args) throws IOException {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Root folder is null. Usage  ROOT_FOLDER.");
-        }
-        if (args.length == 1) {
-            throw new IllegalArgumentException("Extencion's name is null. Add name of file extencion you need to find.");
+        if (args.length != 2) {
+            throw new IllegalArgumentException("You must add two parametres: root folder and extencion's name");
         }
         Path start = Paths.get(args[0]);
         search(start, path -> path.toFile().getName().endsWith(args[1])).forEach(System.out::println);
