@@ -24,10 +24,14 @@ public class CSVReader {
         FileInputStream inputStream = new FileInputStream(argsName.get("path"));
         try (var scanner = new Scanner(inputStream)) {
 
-            // получаем список заголовков в коллекции
+            /*
+             получаем список заголовков в коллекции
+             */
             header = new ArrayList<>(Arrays.asList(scanner.nextLine().split(argsName.get("delimiter"))));
 
-            // получаем список строк из таблицы, в которой хранятся данные через разделитель
+            /*
+             получаем список строк из таблицы, в которой хранятся данные через разделитель
+             */
             while (scanner.hasNextLine()) {
                 lines.add(scanner.nextLine());
             }
@@ -50,19 +54,27 @@ public class CSVReader {
             }
         }
 
-        // формируем отфильтрованную коллекцию
+        /*
+         формируем отфильтрованную коллекцию
+         */
         List<String> resultList = new ArrayList<>();
 
-        // добавляем отфильтрованный заголовок
+        /*
+         добавляем отфильтрованный заголовок
+         */
         resultList.add(filterHeader.deleteCharAt(filterHeader.length() - 1).toString());
 
         for (String res : lines) {
             StringBuilder resultLine = new StringBuilder();
 
-            // создаем коллекцию из записей в строке
+            /*
+             создаем коллекцию из записей в строке
+             */
             List<String> line = new ArrayList<>(Arrays.asList(res.split(argsName.get("delimiter"))));
 
-            // строим строку по фильтрам с заданным разделителем
+            /*
+             строим строку по фильтрам с заданным разделителем
+             */
             for (Integer i : findIndex) {
                 for (String l : line) {
                     if (i.equals(line.indexOf(l))) {
@@ -72,48 +84,20 @@ public class CSVReader {
                 }
             }
 
-            // добавляем отфильтрованные строки в результирующую коллекцию
+            /*
+             добавляем отфильтрованные строки в результирующую коллекцию
+             */
             resultList.add(resultLine.deleteCharAt(resultLine.length() - 1).toString());
         }
 
-        //пишем в файл полученный результат или выводим на консоль
+        /*
+        'пишем в файл полученный результат или выводим на консоль
+         */
         if (!argsName.get("out").equals("stdout")) {
             Files.write(Path.of(argsName.get("out")), resultList);
         } else {
             resultList.forEach(System.out::println);
         }
-
-
-        /* отладочные циклы для вывода данных из коллекций */
-/*
-        for (String hed : header) {
-            System.out.print(hed + " ");
-        }
-        System.out.println();
-        System.out.println();
-
-        for (String data : lines) {
-            System.out.println(data);
-        }
-        System.out.println();
-        System.out.println();
-
-        for (String filt : userFilter) {
-            System.out.print(filt + " ");
-        }
-        System.out.println();
-        System.out.println();
-
-        for (Integer i : findIndex) {
-            System.out.print(i + " ");
-        }
-        System.out.println();
-        System.out.println();
-
-        for (String res : resultList) {
-            System.out.println(res);
-        }
-*/
     }
 
     public static void checkArgs(ArgsName args) {
