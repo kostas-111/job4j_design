@@ -107,7 +107,7 @@ public class CSVReader {
             throw new IllegalArgumentException(String.format("Directory \"%s\" does not exist.", routeIn));
         }
 
-        if (!args.get("out").equals("stdout")) {
+        if (!"stdout".equals(args.get("out"))) {
             try {
                 Path.of(args.get("out"));
             } catch (InvalidPathException e) {
