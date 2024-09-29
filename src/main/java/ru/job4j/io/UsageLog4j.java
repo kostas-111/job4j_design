@@ -7,10 +7,17 @@ public class UsageLog4j {
     private static final Logger LOG = LoggerFactory.getLogger(UsageLog4j.class.getName());
 
     public static void main(String[] args) {
-        LOG.trace("trace message");
-        LOG.debug("debug message");
-        LOG.info("info message");
-        LOG.warn("warn message");
-        LOG.error("error message");
+        long varOne = 56785L;
+        char varTwo = 'k';
+        float varThree = 3.14F;
+        boolean varFour = true;
+        int varFive = 34;
+        short varSix = 32000;
+        byte varSeven = 120;
+        double varEight = 54.5;
+
+        LOG.info("Целые типы переменных. byte: {}, short: {}, int: {}, long: {}, char: {} ", varSeven, varSix, varFive, varOne, varTwo);
+        LOG.info("Вещественные типы переменных. float: {}, double: {}", varThree, varEight);
+        LOG.info("Булевый тип переменных. boolean: {}", varFour);
     }
 }
