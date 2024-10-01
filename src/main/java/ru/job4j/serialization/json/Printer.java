@@ -3,16 +3,38 @@ package ru.job4j.serialization.json;
 import java.util.Arrays;
 
 public class Printer {
-    private final boolean isColour;
-    private final Producer producer;
-    private final double price;
-    private final String[] typesOfConnection;
+    private boolean isColour;
+    private Producer producer;
+    private double price;
+    private String[] typesOfConnection;
 
-    public Printer(boolean isColour, Producer producer, double price, String[] typesOfConnection) {
+    public Printer(boolean isColour, Producer producer, double price, String... typesOfConnection) {
         this.isColour = isColour;
         this.producer = producer;
         this.price = price;
         this.typesOfConnection = typesOfConnection;
+    }
+
+    public Printer(boolean isColour, double price, String... typesOfConnection) {
+        this.isColour = isColour;
+        this.price = price;
+        this.typesOfConnection = typesOfConnection;
+    }
+
+    public boolean isColour() {
+        return isColour;
+    }
+
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String[] getTypesOfConnection() {
+        return typesOfConnection;
     }
 
     @Override

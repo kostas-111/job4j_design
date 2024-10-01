@@ -11,6 +11,18 @@ public class Producer {
         this.phone = phone;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     @Override
     public String toString() {
         return "Producer{"
