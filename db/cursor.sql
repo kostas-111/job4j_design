@@ -14,6 +14,8 @@ move backward 5 from curs_products;
 
 fetch prior from curs_products;
 
+close curs_products;
+
 commit;
 
 
