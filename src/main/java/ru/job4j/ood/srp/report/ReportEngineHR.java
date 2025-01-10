@@ -25,7 +25,7 @@ public class ReportEngineHR implements Report {
                         .reversed())
                 .toList();
         for (Employee employee : sortedEmployee) {
-            text.append(employee.getName()).append(" ")
+            text.append(employee.getName()).append("; ")
                     .append(employee.getSalary())
                     .append(System.lineSeparator());
         }

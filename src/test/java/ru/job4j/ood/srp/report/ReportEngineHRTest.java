@@ -25,13 +25,12 @@ class ReportEngineHRTest {
         StringBuilder expected = new StringBuilder()
                 .append("Name; Salary;")
                 .append(System.lineSeparator());
-        expected.append(workerTwo.getName()).append(" ")
+        expected.append(workerTwo.getName()).append("; ")
                 .append(workerTwo.getSalary())
                 .append(System.lineSeparator())
-                .append(workerOne.getName()).append(" ")
+                .append(workerOne.getName()).append("; ")
                 .append(workerOne.getSalary())
                 .append(System.lineSeparator());
         assertThat(engine.generate(employee -> true)).isEqualTo(expected.toString());
     }
-
 }
