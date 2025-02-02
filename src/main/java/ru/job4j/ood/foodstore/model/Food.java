@@ -1,21 +1,24 @@
 package ru.job4j.ood.foodstore.model;
 
 import java.time.LocalDate;
-import java.util.Calendar;
+import java.util.Objects;
 
 public class Food {
 
+    private String uid;
     private String name;
     private LocalDate expiryDate;
     private LocalDate createDate;
     private double price;
     private double discount;
 
-    public Food(String name,
+    public Food(String uid,
+                String name,
                 LocalDate expiryDate,
                 LocalDate createDate,
                 double price,
                 double discount) {
+        this.uid = uid;
         this.name = name;
         this.expiryDate = expiryDate;
         this.createDate = createDate;
@@ -26,6 +29,7 @@ public class Food {
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;
@@ -61,5 +65,22 @@ public class Food {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Food food = (Food) o;
+        return Objects.equals(uid, food.uid);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(uid);
     }
 }

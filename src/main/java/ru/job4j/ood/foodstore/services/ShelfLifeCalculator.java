@@ -8,16 +8,19 @@ import java.time.LocalDate;
  соответствует принципу единственной ответственности (SRP)
  */
 public class ShelfLifeCalculator {
-    public static double calculateRemainingShelfLifePercentage(Food food) {
+
+    public static int calculateRemainingShelfLifePercentage(Food food) {
         LocalDate now = LocalDate.now();
-        long totalDays = daysBetween(food.getCreateDate(), food.getExpiryDate());
-        long elapsedDays = daysBetween(food.getCreateDate(), now);
-
-        if (totalDays == 0) {
-            return 100.0; // если дата истечения совпадает с датой создания, считаем что срок годности уже истек
+        LocalDate expiryDate = food.getExpiryDate();
+        LocalDate createDate = food.getCreateDate();
+        long totalDays = daysBetween(createDate, expiryDate);
+        long elapsedDays = daysBetween(createDate, now);
+        int result = 100;
+        if (!(now.isAfter(expiryDate)) || now.equals(expiryDate)) {
+            double resultDouble = ((double) (elapsedDays  * 100) / totalDays);
+            result = (int) Math.round(resultDouble);
         }
-
-        return ((double) (totalDays - elapsedDays) / totalDays) * 100;
+        return result;
     }
 
     private static long daysBetween(LocalDate start, LocalDate end) {
