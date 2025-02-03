@@ -5,7 +5,6 @@ import java.time.LocalDate;
 
 /*
  Класс, отвечающий за расчет оставшегося срока годности
- соответствует принципу единственной ответственности (SRP)
  */
 public class ShelfLifeCalculator {
 

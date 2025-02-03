@@ -1,37 +1,49 @@
 package ru.job4j.ood.foodstore.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.foodstore.model.Food;
-
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.assertj.core.api.Assertions.assertThatList;
+import static org.junit.jupiter.api.Assertions.*;
 
 class WarehouseTest {
 
+    private Warehouse warehouse;
+    private Food goodFood;
+    private Food trashFood;
+
+    @BeforeEach
+    void setup() {
+        warehouse = new Warehouse();
+        LocalDate expiryDate = LocalDate.now().plusDays(10);
+        LocalDate createDate = LocalDate.now().minusDays(1);
+        goodFood = new Food(UUID.randomUUID().toString(), "Cheese", expiryDate, createDate, 500, 0);
+        trashFood = new Food(UUID.randomUUID().toString(), "Cheese", expiryDate.minusDays(10), createDate, 500, 0);
+    }
+
     @Test
     void testAddProduct() {
-        Warehouse warehouse = new Warehouse();
-        Food apple = new Food(UUID.randomUUID().toString(), "Apple", LocalDate.of(2023, 10, 1), LocalDate.of(2023, 11, 15), 50, 0);
-        warehouse.addProduct(apple);
+        warehouse.addProduct(goodFood);
         assertEquals(1, warehouse.getProducts().size());
-        assertEquals(apple, warehouse.getProducts().get(0));
+        assertEquals(goodFood, warehouse.getProducts().get(0));
+    }
+
+    @Test
+    void testAddOnlyGoodProduct() {
+        warehouse.addProduct(goodFood);
+        warehouse.addProduct(trashFood);
+        assertEquals(1, warehouse.getProducts().size());
+        assertThatList(warehouse.getProducts()).doesNotContain(trashFood);
     }
 
     @Test
     void testGetProducts() {
-        Warehouse warehouse = new Warehouse();
-        Food apple = new Food(UUID.randomUUID().toString(), "Apple", LocalDate.of(2023, 10, 1), LocalDate.of(2023, 11, 15), 50, 0);
-        Food banana = new Food(UUID.randomUUID().toString(), "Banana", LocalDate.of(2023, 9, 5), LocalDate.of(2023, 10, 30), 40, 0);
-
-        warehouse.addProduct(apple);
-        warehouse.addProduct(banana);
-
-        assertEquals(2, warehouse.getProducts().size());
-        assertEquals(apple, warehouse.getProducts().get(0));
-        assertEquals(banana, warehouse.getProducts().get(1));
+        warehouse.addProduct(goodFood);
+        warehouse.addProduct(trashFood);
+        List<Food> expected = List.of(goodFood);
+        assertThatList(expected).containsAll(warehouse.getProducts());
     }
-
 }

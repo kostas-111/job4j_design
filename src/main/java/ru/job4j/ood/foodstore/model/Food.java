@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class Food {
 
-    private String uid;
+    private final String uid;
     private String name;
     private LocalDate expiryDate;
     private LocalDate createDate;
@@ -29,7 +29,6 @@ public class Food {
     public String getName() {
         return name;
     }
-
 
     public void setName(String name) {
         this.name = name;

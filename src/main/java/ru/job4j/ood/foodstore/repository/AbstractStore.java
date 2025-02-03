@@ -6,12 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractStore implements Store {
-    List<Food> products = new ArrayList<>();
 
-    @Override
-    public void addProduct(Food product) {
-        products.add(product);
-    }
+    List<Food> products = new ArrayList<>();
 
     @Override
     public List<Food> getProducts() {

@@ -1,39 +1,49 @@
 package ru.job4j.ood.foodstore.repository;
 
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.foodstore.model.Food;
-
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
-
+import static org.assertj.core.api.Assertions.assertThatList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 class ShopTest {
-    @Disabled
+
+    private Shop shop;
+    private Food goodFood;
+    private Food trashFood;
+
+    @BeforeEach
+    void setup() {
+        shop = new Shop();
+        LocalDate expiryDate = LocalDate.now().plusDays(7);
+        LocalDate createDate = LocalDate.now().minusDays(6);
+        goodFood = new Food(UUID.randomUUID().toString(), "Cheese", expiryDate, createDate, 500, 0);
+        trashFood = new Food(UUID.randomUUID().toString(), "Cheese", expiryDate.minusDays(10), createDate, 500, 0);
+    }
+
     @Test
     void testAddProduct() {
-        Shop shop = new Shop();
-        Food apple = new Food(UUID.randomUUID().toString(), "Apple", LocalDate.of(2023, 10, 1), LocalDate.of(2023, 12, 31), 50, 0);
-
-        shop.addProduct(apple);
-
+        shop.addProduct(goodFood);
         assertEquals(1, shop.getProducts().size());
-        assertEquals(apple, shop.getProducts().get(0));
+        assertEquals(goodFood, shop.getProducts().get(0));
     }
-    @Disabled
+
+    @Test
+    void testAddOnlyGoodProduct() {
+        shop.addProduct(goodFood);
+        shop.addProduct(trashFood);
+        assertEquals(1, shop.getProducts().size());
+        assertThatList(shop.getProducts()).doesNotContain(trashFood);
+    }
+
     @Test
     void testGetProducts() {
-        Shop shop = new Shop();
-        Food apple = new Food(UUID.randomUUID().toString(), "Apple", LocalDate.of(2023, 10, 1), LocalDate.of(2023, 12, 31), 50, 0);
-        Food banana = new Food(UUID.randomUUID().toString(), "Banana", LocalDate.of(2023, 9, 5), LocalDate.of(2023, 11, 30), 40, 0);
-
-        shop.addProduct(apple);
-        shop.addProduct(banana);
-
-        assertEquals(2, shop.getProducts().size());
-        assertEquals(apple, shop.getProducts().get(0));
-        assertEquals(banana, shop.getProducts().get(1));
+        shop.addProduct(goodFood);
+        shop.addProduct(trashFood);
+        List<Food> expected = List.of(goodFood);
+        assertThatList(expected).containsAll(shop.getProducts());
     }
 }
