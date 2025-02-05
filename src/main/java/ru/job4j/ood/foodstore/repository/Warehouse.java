@@ -8,7 +8,7 @@ public class Warehouse extends AbstractStore {
     @Override
     public void addProduct(Food food) {
         int remainingShelfLife = ShelfLifeCalculator.calculateRemainingShelfLifePercentage(food);
-        if (remainingShelfLife < 25) {
+        if (remainingShelfLife < warehousePercentage) {
             products.add(food);
         }
     }

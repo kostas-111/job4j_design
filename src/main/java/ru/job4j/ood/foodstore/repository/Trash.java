@@ -8,7 +8,7 @@ public class Trash extends AbstractStore {
     @Override
     public void addProduct(Food food) {
         int remainingShelfLife = ShelfLifeCalculator.calculateRemainingShelfLifePercentage(food);
-        if (remainingShelfLife == 100) {
+        if (remainingShelfLife == trashPercentage) {
             products.add(food);
         }
     }
