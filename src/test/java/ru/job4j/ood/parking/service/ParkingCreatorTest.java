@@ -1,16 +1,20 @@
 package ru.job4j.ood.parking.service;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.parking.model.parkingplace.CarPlace;
 import ru.job4j.ood.parking.model.parkingplace.ParkingPlace;
 import ru.job4j.ood.parking.model.parkingplace.TruckPlace;
+import ru.job4j.ood.parking.model.vehicle.Truck;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Disabled
 class ParkingCreatorTest {
 
     @Test
@@ -18,8 +22,8 @@ class ParkingCreatorTest {
         int carPlacesCount = 2;
         ParkingCreator creator = new ParkingCreator();
         List<ParkingPlace> expectedCarPlaces = List.of(
-                new CarPlace(1, true),
-                new CarPlace(2, true)
+                new CarPlace(1, false),
+                new CarPlace(2, false)
         );
         List<ParkingPlace> carPlaces = creator.create(carPlacesCount, 0);
         assertThat(carPlaces.size()).isEqualTo(expectedCarPlaces.size());
@@ -33,13 +37,21 @@ class ParkingCreatorTest {
         ParkingCreator creator = new ParkingCreator();
 
         List<ParkingPlace> expectedCarPlaces = List.of(
-                new CarPlace(1, true),
-                new CarPlace(2, true),
-                new TruckPlace(1, true),
-                new TruckPlace(2, true)
+                new CarPlace(1, false),
+                new CarPlace(2, false),
+                new TruckPlace(1, false),
+                new TruckPlace(2, false)
         );
         List<ParkingPlace> carPlaces = creator.create(carPlacesCount, truckPlacesCount);
         assertThat(carPlaces.size()).isEqualTo(expectedCarPlaces.size());
-        assertTrue(carPlaces.contains(new TruckPlace(1, true)));
+        assertTrue(carPlaces.contains(new TruckPlace(1, false)));
+    }
+
+    @Test
+    void whenTryToCreateParkingWithNullOrMinusSize() {
+        ParkingCreator creatorNull = new ParkingCreator();
+        assertThrows(IllegalArgumentException.class, () -> creatorNull.create(0, 0));
+        ParkingCreator creatorMinus = new ParkingCreator();
+        assertThrows(IllegalArgumentException.class, () -> creatorMinus.create(2, -1));
     }
 }

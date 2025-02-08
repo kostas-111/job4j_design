@@ -12,10 +12,10 @@ public class ParkingCreator {
     public List<ParkingPlace> create(int carPlaceAmount, int truckPlaceAmount) {
         List<ParkingPlace> places = new ArrayList<>();
         for (int i = 1; i <= carPlaceAmount; i++) {
-            places.add(new CarPlace(i, true));
+            places.add(new CarPlace(i, false));
         }
         for (int i = 1; i <= truckPlaceAmount; i++) {
-            places.add(new TruckPlace(i, true));
+            places.add(new TruckPlace(i, false));
         }
         return places;
     }

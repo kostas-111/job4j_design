@@ -6,4 +6,6 @@ public interface ParkingPlace {
 
     void park(Vehicle vehicle);
     void unpark(Vehicle vehicle);
+    int getPlaceNumber();
+    boolean isBusy();
 }

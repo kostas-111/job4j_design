@@ -17,7 +17,7 @@ public class Truck extends Vehicle {
 
     private int checkSize(int size) {
         if (size == 1) {
-            throw new IllegalArgumentException("Размер для грузового траспортного средства должен быть больше 1");
+            throw new IllegalArgumentException("Размер для грузового транспортного средства должен быть больше 1");
         }
         return size;
     }

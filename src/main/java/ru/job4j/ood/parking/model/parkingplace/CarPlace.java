@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class CarPlace implements ParkingPlace {
 
-    private int placeNumber;
+    private final int placeNumber;
     private boolean isBusy;
 
     public CarPlace(int placeNumber, boolean isBusy) {
@@ -22,6 +22,16 @@ public class CarPlace implements ParkingPlace {
     @Override
     public void unpark(Vehicle vehicle) {
 
+    }
+
+    @Override
+    public int getPlaceNumber() {
+        return placeNumber;
+    }
+
+    @Override
+    public boolean isBusy() {
+        return isBusy;
     }
 
     @Override
