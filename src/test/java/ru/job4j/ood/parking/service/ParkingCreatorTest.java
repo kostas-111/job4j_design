@@ -1,20 +1,16 @@
 package ru.job4j.ood.parking.service;
 
-import org.junit.jupiter.api.Disabled;
+
 import org.junit.jupiter.api.Test;
 import ru.job4j.ood.parking.model.parkingplace.CarPlace;
 import ru.job4j.ood.parking.model.parkingplace.ParkingPlace;
 import ru.job4j.ood.parking.model.parkingplace.TruckPlace;
-import ru.job4j.ood.parking.model.vehicle.Truck;
-
-import java.util.ArrayList;
 import java.util.List;
-
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@Disabled
+
 class ParkingCreatorTest {
 
     @Test
@@ -51,6 +47,8 @@ class ParkingCreatorTest {
     void whenTryToCreateParkingWithNullOrMinusSize() {
         ParkingCreator creatorNull = new ParkingCreator();
         assertThrows(IllegalArgumentException.class, () -> creatorNull.create(0, 0));
+        ParkingCreator creatorOneNull = new ParkingCreator();
+        assertThrows(IllegalArgumentException.class, () -> creatorOneNull.create(0, -5));
         ParkingCreator creatorMinus = new ParkingCreator();
         assertThrows(IllegalArgumentException.class, () -> creatorMinus.create(2, -1));
     }
