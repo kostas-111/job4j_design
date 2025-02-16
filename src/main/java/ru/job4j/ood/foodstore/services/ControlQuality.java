@@ -37,4 +37,20 @@ public class ControlQuality {
             }
         }
     }
+
+    /*
+    Метод динамического распределения продуктов.
+    Сначала мы собираем все продукты из всех хранилищ в ArrayList
+    и очищаем хранилища.
+    Затем с использованием метода distribute()
+    перераспределяем заново продукты по хранилищам
+     */
+    public void resort() {
+        List<Food> allFoods = new ArrayList<>();
+        for (Store store : stores) {
+            allFoods.addAll(store.getProducts());
+            store.getProducts().clear();
+        }
+        distribute(allFoods);
+    }
 }

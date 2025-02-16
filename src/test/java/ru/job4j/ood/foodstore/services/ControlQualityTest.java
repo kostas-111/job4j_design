@@ -70,4 +70,20 @@ class ControlQualityTest {
         assertEquals(48.0, orange.getPrice());
         assertEquals(0.2, orange.getDiscount());
     }
+
+    @Test
+    void testResortFromShopToTrash() {
+        LocalDate expiryDate = LocalDate.now().plusDays(7);
+        LocalDate createDate = LocalDate.now().minusDays(6);
+        Food banana = new Food(UUID.randomUUID().toString(), "Banana", expiryDate, createDate, 120, 0);
+        controlQuality.distribute(List.of(banana));
+        assertEquals(1, shop.getProducts().size());
+        assertEquals(0, trash.getProducts().size());
+        assertEquals(banana, shop.getProducts().get(0));
+        banana.setExpiryDate(LocalDate.now());
+        controlQuality.resort();
+        assertEquals(0, shop.getProducts().size());
+        assertEquals(1, trash.getProducts().size());
+        assertEquals(banana, trash.getProducts().get(0));
+    }
 }
